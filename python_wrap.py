@@ -50,6 +50,7 @@ def python_drc_wrap(input,output):
         p_return['rse'] = math.sqrt(r_return.rx2['fit'][1][0]) # Root squared error
     except:
         print("LL4 and L4 models could not been fitted, returning empty dict")
+        p_return = {}
     return p_return
 
 """ Example usage """
