@@ -5,16 +5,16 @@ model (see fitting.R)
 import math
 import rpy2.robjects as ro
 
-def python_drc_wrap(input,output):
+def python_drc_wrap(doses, responses):
     """
     Takes x,y data given by input and ouput and fits a LL4, or L4 (if LL4 didn't converge)
     model to the given data using the R model drm. Returns essential fit information in
     a python dict.
 
-    input: python list
+    dose: python list
         Dose values as floats in a python list
 
-    output: python list
+    responses: python list
         Response values as floats in a python list
 
     Returns python dictionary with the following entries
@@ -31,10 +31,10 @@ def python_drc_wrap(input,output):
     rse: root square error/residuals
     """
     r=ro.r
-    r_input = ro.FloatVector(input)
-    r_output = ro.FloatVector(output)
-    r.source("fitting.R")
-    r_return = r.curveFits(r_input,r_output)
+    r_doses = ro.FloatVector(doses)
+    r_responses = ro.FloatVector(responses)
+    r.source("python_drm_easy_wrap/fitting.R")
+    r_return = r.curveFits(r_doses,r_responses)
     # Convert r output to python output
     p_return = {}
     try:

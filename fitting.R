@@ -3,7 +3,7 @@ library(stringr)
 library(tools)
 
 #curve fitting iteration function
-curveFits <- function(Response,Dose){
+curveFits <- function(Dose, Response){
   #try log-logistic
   drm_fit <- drm(Response ~ Dose,fct = LL.4(fixed = c(NA, NA, NA, NA), names = c("Slope", "Lower Limit", "Upper Limit", "IC50")), control = drmc(errorm = FALSE))
   drm_fit$fit_type <- "LL4"
